@@ -1,0 +1,178 @@
+#----------------------------
+#         -[AMP]-
+#      Made By AMPDev
+#----------------------------
+
+
+#-----------Options----------
+Options:
+	Prefix: &9&lAMP &8»
+	BroadcastPrefix: &e&lANNOUNCEMENT &8»&6
+	JoinMessage: &8[&a+&8] &7%player%
+	LeaveMessage: &8[&c-&8] &7%player%
+	ChatFormat: &7%player% &8» %{chatcolor.%player's uuid%}%%message%
+#----------------------------
+
+#------------Code------------
+#       [DO NOT EDIT]
+
+
+#AMP COMMAND
+
+command /amp:
+	trigger:
+		send "&7---&8[&9&lAMP&8]&7---"
+		send "&bVersion: &7BETA-5
+		send "&bMade By: &7AMPDev"
+		send "&7---&8[&9&lAMP&8]&7---"
+
+command /advancedminecraftplugin:
+	trigger:
+		send "&7---&8[&9&lAMP&8]&7---"
+		send "&bVersion: &7BETA-5
+		send "&bMade By: &7AMPDev"
+		send "&7---&8[&9&lAMP&8]&7---"
+
+#BROADCAST SYSTEM
+
+command /broadcast <text>:
+	permission: amp.broadcast
+	usage: "/broadcast <message>"
+	trigger:	
+		broadcast "{@BroadcastPrefix} %arg 1%"
+
+command /bc <text>:
+	permission: amp.broadcast
+	usage: "/broadcast <message>"
+	trigger:	
+		broadcast "{@BroadcastPrefix} %arg 1%"
+
+#CUSTOM JOIN & LEAVE MESSAGES
+	
+on join:
+	set join message to "{@JoinMessage}"
+
+on leave:
+	set leave message to "{@LeaveMessage}"
+
+#CHAT FORMAT
+
+on chat:
+	cancel event
+	broadcast "{@ChatFormat}"
+
+#CHAT COLOR
+
+on chat:
+    if {chatcolor.%player's uuid%} is not set:
+        set {chatcolor.%player's uuid%} to "&7"
+
+command /color <text>:
+	trigger:
+		if arg 1 is "white":
+			set {chatcolor.%player's uuid%} to "&f"
+			send "{@Prefix} &7Your chatcolor is now &fwhite"
+		if arg 1 is "black":
+			set {chatcolor.%player's uuid%} to "&0"
+			send "{@Prefix} &7Your chatcolor is now &0black"
+		if arg 1 is "lightred":
+			set {chatcolor.%player's uuid%} to "&c"
+			send "{@Prefix} &7Your chatcolor is now &clightred"
+		if arg 1 is "red":
+			set {chatcolor.%player's uuid%} to "&4"
+			send "{@Prefix} &7Your chatcolor is now &4red"
+		if arg 1 is "lightgray":
+			set {chatcolor.%player's uuid%} to "&7"
+			send "{@Prefix} &7Your chatcolor is now &7light gray"
+		if arg 1 is "gray":
+			set {chatcolor.%player's uuid%} to "&8"
+			send "{@Prefix} &7Your chatcolor is now &8gray"
+		if arg 1 is "lime":
+			set {chatcolor.%player's uuid%} to "&a"
+			send "{@Prefix} &7Your chatcolor is now &alime"
+		if arg 1 is "green":
+			set {chatcolor.%player's uuid%} to "&2"
+			send "{@Prefix} &7Your chatcolor is now &2green"
+		if arg 1 is "aqua":
+			set {chatcolor.%player's uuid%} to "&b"
+			send "{@Prefix} &7Your chatcolor is now &baqua"
+		if arg 1 is "cyan":
+			set {chatcolor.%player's uuid%} to "&3"
+			send "{@Prefix} &7Your chatcolor is now &3cyan"
+		if arg 1 is "blue":
+			set {chatcolor.%player's uuid%} to "&9"
+			send "{@Prefix} &7Your chatcolor is now &9blue"
+		if arg 1 is "darkblue":
+			set {chatcolor.%player's uuid%} to "&1"
+			send "{@Prefix} &7Your chatcolor is now &1dark blue"
+		if arg 1 is "lightpurple":
+			set {chatcolor.%player's uuid%} to "&d"
+			send "{@Prefix} &7Your chatcolor is now &dlight purple"
+		if arg 1 is "purple":
+			set {chatcolor.%player's uuid%} to "&5"
+			send "{@Prefix} &7Your chatcolor is now &5purple"
+		if arg 1 is "yellow":
+			set {chatcolor.%player's uuid%} to "&e"
+			send "{@Prefix} &7Your chatcolor is now &eyellow"
+		if arg 1 is "gold":
+			set {chatcolor.%player's uuid%} to "&6"
+			send "{@Prefix} &7Your chatcolor is now &6gold"
+
+command /colors:
+	trigger:
+		send "{@Prefix} &7Valid chatcolors are: &fwhite, &0black, &clightred, &4red, &7lightgray, &8gray, &alime, &2green, &baqua, &3cyan, &9blue, &1darkblue, &dlightpurple, &5purple, &eyellow &7& &6gold&7."
+
+#SPAWN/LOBBY SYSTEM
+
+command /setlobby:
+	permission: amp.setspawn
+	trigger:
+		set {lobby} to player's location
+		send "&aSet lobby!"
+
+command /setspawn:
+	permission: amp.setspawn
+	trigger:
+		set {lobby} to player's location
+		send "&aSet spawn!"
+
+command /lobby:
+	permission: amp.spawn
+	trigger:
+		send "&aTeleporting..."
+		teleport player to {lobby}
+
+command /spawn:
+	permission: amp.spawn
+	trigger:
+		send "&aTeleporting..."
+		teleport player to {lobby}
+
+command /hub:
+	permission: amp.spawn
+	trigger:
+		send "&aTeleporting..."
+		teleport player to {lobby}
+
+#PUNISHMENT SYSTEM
+
+command /kick <player> <text>:
+	permission: amp.kick
+	trigger:
+		kick arg 1 because "%arg 2%"
+		send "{@Prefix} &c%arg 1% has been kicked!"
+
+command /unban <offlineplayer>:
+	permission: amp.unban
+	trigger:
+		unban arg 1
+		send "{@Prefix} &c%arg 1% has been unbanned!"
+
+command /ban <offlineplayer> <text>:
+	permission: amp.ban
+	trigger:
+		ban arg 1 because "%arg 2%"
+		send "{@Prefix} &c%arg 1% has been banned!"
+
+
+	
